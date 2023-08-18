@@ -51,6 +51,7 @@ The chatbot also provides an API endpoint that can be used to interact with the 
 {
   "message": "Hello, chatbot!"
 }
+```
 
 ## Customization
 You can customize the behavior of the chatbot by modifying the code in app.py. Experiment with different model configurations, input formats, and response handling strategies.
