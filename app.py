@@ -1,11 +1,11 @@
 from flask import Flask, request, jsonify, render_template
 import openai
-import os
 
 app = Flask(__name__)
 
 # Set your OpenAI API key here
-openai.api_key = "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"
+openai.api_key = "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"
+
 
 @app.route("/", methods=["GET"])
 def index():
@@ -13,16 +13,18 @@ def index():
 
 @app.route("/api", methods=["POST"])
 def api():
-    message = request.json.get("message")
-    completion = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[{"role": "user", "content": message}]
-    )
-    if completion.choices[0].message != None:
-        return completion.choices[0].message
-    else:
-        return 'Failed to get a response'
-
+    try:
+        message = request.json.get("message")
+        completion = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": message}]
+        )
+        if completion.choices[0].message is not None:
+            return completion.choices[0].message
+        else:
+            return 'Failed to get a response'
+    except Exception as e:
+        return str(e), 500
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
